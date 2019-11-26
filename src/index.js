@@ -1,5 +1,6 @@
 
 const express = require("express");
+const port = process.env.PORT || 4000;
 
 const app = express();
 
@@ -11,7 +12,7 @@ app.get("/", function(req,res){
     res.send("WECOM");
 });
 
-app.listen(4000, function(){
+app.listen(port, function(){
     console.log("tudo ok!");
 });
 
