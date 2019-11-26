@@ -4,7 +4,7 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node src/index.js",
+    "start": "node src/index.js",
     "pm2": "pm2 startOrRestart ecosystem.config.js --env development --interpreter babel-node"
   },
   "dependencies": {
