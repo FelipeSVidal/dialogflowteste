@@ -36,19 +36,40 @@ app.intent("Todos os Cursos", async function(conv) {
     let rows = [];
     for(var i = 0; i < courses.length; i++){
         let c = courses[i];
-        conv.ask(new BasicCard({
-            title : c.name,
-            subtitle: c.hoursPerClass,
-            text: c.description,
-            display: 'CROPPED'
-        }));
-        //rows.push([c.name, c.description, c.hoursPerClass])
+        // conv.ask(new BasicCard({
+        //     title : c.name,
+        //     subtitle: c.hoursPerClass,
+        //     text: c.description,
+        //     display: 'CROPPED'
+        // }));
+        rows.push([c.name, c.description, c.hoursPerClass])
     }
-    // conv.ask(new Table({
-    //     dividers: true,
-    //     columns: ['Nome do Curso', 'Descrição', 'Horas'],
-    //     rows: rows,
-    //   }));
+    conv.ask(new Table({
+        dividers: true,
+        columns: ['Nome do Curso', 'Descrição', 'Horas'],
+        rows: rows,
+      }));
+});
+
+app.intent("Pegar um curso", async function(conv, params) {
+    conv.ask(`Card do curso com id: ${params.courseId}`); 
+    let options = {
+        method: 'get',
+        uri: `https://cvaadministracao.inec.org.br:4000/api/v1/course/${params.courseId}`,
+        json: true,
+    }
+    options.auth = {
+        'bearer': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVG9rZW4iOiJmNDRjM2JjMzI3YTkwODJmMTY2NmRlMGJiN2YwOGFhYiIsImFkbWluVG9rZW4iOiJmNjA2MDdmNDUyZTU0ZGQ1ZTU5ZmI5ZjNmNTA0YWIzYyIsInVzZXJJZCI6MTksImlhdCI6MTU3MzU5MTkzNH0.B2vr1OxHFdkfIrMzHu3wZq6Ozy5IqJqDkX205kRz_0Q'
+    }
+    let course = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
+
+    conv.ask(new BasicCard({
+        title: course[0].name,
+        subtitle: course[0].hoursPerClass,
+        text: c.description,
+        display: 'CROPPED'
+    }));
+
 });
 
 app.catch((conv, error) => {
