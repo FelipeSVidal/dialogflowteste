@@ -9,7 +9,6 @@ const {
 
   const express = require('express');
   const bodyParser = require('body-parser'); 
-  const port = process.env.port || 3000;
 
   const expressApp = express();
 
@@ -30,8 +29,13 @@ app.catch((conv, error) => {
     conv.ask(`I couldn't understand. Can you say that again?`);
   });
 
-  expressApp.get("/", function(req,res){ res.status(200).json("UIU")});
-  expressApp.use(bodyParser.json(), app).listen(port, function(){console.log("AQUI VEIO")});
+  expressApp.set('port', (process.env.PORT || 5000));
+  app.get('/', function(request, response) {
+    var result = 'App is running'
+    response.send(result);
+}).use(bodyParser.json(), app).listen(app.get('port'), function() {
+    console.log('App is running, server is listening on port ', app.get('port'));
+});
 
 
 module.exports = app;
