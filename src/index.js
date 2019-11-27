@@ -67,11 +67,12 @@ app.intent("Pegar um curso", async function(conv, params) {
     conv.ask(new BasicCard({
         title: course.name,
         subtitle: course.hoursPerClass,
-        formattedText: course.description,
+        text: "Curso de teste",
         image: new Image({
             alt: `Imagem do Curso ${course.name}`,
             url: course.image
-        })
+        }),
+        display: "CROPPED"
     }));
 
 });
