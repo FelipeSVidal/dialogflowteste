@@ -11,6 +11,8 @@ const {
   const bodyParser = require('body-parser'); 
   const port = process.env.port || 3000;
 
+  const expressApp = express();
+
 const app = dialogflow({
     debug: true
   });
@@ -28,7 +30,8 @@ app.catch((conv, error) => {
     conv.ask(`I couldn't understand. Can you say that again?`);
   });
 
-  express().use(bodyParser.json(), app).listen(port, function(){console.log("AQUI VEIO")});
+  expr.get("/", function(req,res){ res.status(200).json("UIU")});
+  expr.use(bodyParser.json(), app).listen(port, function(){console.log("AQUI VEIO")});
 
 
 module.exports = app;
