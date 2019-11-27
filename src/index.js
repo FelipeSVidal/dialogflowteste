@@ -30,8 +30,8 @@ app.catch((conv, error) => {
     conv.ask(`I couldn't understand. Can you say that again?`);
   });
 
-  expr.get("/", function(req,res){ res.status(200).json("UIU")});
-  expr.use(bodyParser.json(), app).listen(port, function(){console.log("AQUI VEIO")});
+  expressApp.get("/", function(req,res){ res.status(200).json("UIU")});
+  expressApp.use(bodyParser.json(), app).listen(port, function(){console.log("AQUI VEIO")});
 
 
 module.exports = app;
