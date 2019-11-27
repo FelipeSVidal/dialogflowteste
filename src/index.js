@@ -67,7 +67,7 @@ app.intent("Pegar um curso", async function(conv, params) {
     conv.ask(new BasicCard({
         title: course.name,
         subtitle: course.hoursPerClass,
-        text: c.description,
+        text: course.description,
         display: 'CROPPED'
     }));
 
