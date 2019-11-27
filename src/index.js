@@ -67,7 +67,7 @@ app.intent("Pegar um curso", async function(conv, params) {
     conv.ask(new BasicCard({
         title: course.name,
         subtitle: course.hoursPerClass,
-        text: course.description,
+        formattedText: course.description,
         image: new Image({
             alt: `Imagem do Curso ${course.name}`,
             url: course.image
