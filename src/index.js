@@ -17,7 +17,25 @@ const app = dialogflow({
   });
 
 app.intent("Todos os Cursos", function(conv) {
-    conv.ask("How are you?");
+    conv.ask("Lista de Todos os Cursos");
+    conv.ask(new Table({
+        dividers: true,
+        columns: ['Nome do Curso', 'Tutor', 'Quantida evadidos'],
+        rows: [
+          ['Agente de Microcrédito', 'Fabrice', '12'],
+          ['Agente de Endemias', 'João', '21'],
+          ['Agente de Microcrédito', 'Fabrice', '12'],
+          ['Agente de Microcrédito', 'Fabrice', '12'],
+          ['Agente de Microcrédito', 'Fabrice', '12'],
+          ['Agente de Microcrédito', 'Fabrice', '12'],
+          ['Agente de Microcrédito', 'Fabrice', '12'],
+          ['Agente de Microcrédito', 'Fabrice', '12'],
+          ['Agente de Microcrédito', 'Fabrice', '12'],
+          ['Agente de Microcrédito', 'Fabrice', '12'],
+          ['Agente de Microcrédito', 'Fabrice', '12'],
+          ['Agente de Microcrédito', 'Fabrice', '12'],
+        ],
+      }));
 });
 
 app.catch((conv, error) => {
