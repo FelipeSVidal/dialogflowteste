@@ -30,7 +30,7 @@ app.catch((conv, error) => {
   });
 
   expressApp.set('port', (process.env.PORT || 5000));
-  app.get('/', function(request, response) {
+  expressApp.get('/', function(request, response) {
     var result = 'App is running'
     response.send(result);
 }).use(bodyParser.json(), app).listen(app.get('port'), function() {
