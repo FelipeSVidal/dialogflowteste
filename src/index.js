@@ -5,6 +5,7 @@ const {
     Image,
     Table,
     Carousel,
+    BasicCard
   } = require('actions-on-google');
 
   const express = require('express');
@@ -35,13 +36,19 @@ app.intent("Todos os Cursos", async function(conv) {
     let rows = [];
     for(var i = 0; i < courses.length; i++){
         let c = courses[i];
-        rows.push([c.name, c.description, c.hoursPerClass])
+        conv.ask(new BasicCard({
+            title : c.name,
+            subtitle: c.hoursPerClass,
+            text: c.description,
+            display: 'CROPPED'
+        }));
+        //rows.push([c.name, c.description, c.hoursPerClass])
     }
-    conv.ask(new Table({
-        dividers: true,
-        columns: ['Nome do Curso', 'Descrição', 'Horas'],
-        rows: rows,
-      }));
+    // conv.ask(new Table({
+    //     dividers: true,
+    //     columns: ['Nome do Curso', 'Descrição', 'Horas'],
+    //     rows: rows,
+    //   }));
 });
 
 app.catch((conv, error) => {
