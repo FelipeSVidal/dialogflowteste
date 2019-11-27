@@ -63,9 +63,10 @@ app.intent("Pegar um curso", async function(conv, params) {
     }
     let course = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
 
+    console.log(course);
     conv.ask(new BasicCard({
-        title: course[0].name,
-        subtitle: course[0].hoursPerClass,
+        title: course.name,
+        subtitle: course.hoursPerClass,
         text: c.description,
         display: 'CROPPED'
     }));
