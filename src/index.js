@@ -12,29 +12,35 @@ const {
 
   const expressApp = express();
 
+  const request = require( 'request-promise' );
+
 const app = dialogflow({
     debug: true
   });
 
 app.intent("Todos os Cursos", function(conv) {
     conv.ask("Lista de Todos os Cursos");
+    let options = {
+        method: 'get',
+        uri: 'https://cvaadministracao.inec.org.br:4000/api/v1/course',
+        json: true,
+    }
+    options.auth = {
+        'bearer': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVG9rZW4iOiJmNDRjM2JjMzI3YTkwODJmMTY2NmRlMGJiN2YwOGFhYiIsImFkbWluVG9rZW4iOiJmNjA2MDdmNDUyZTU0ZGQ1ZTU5ZmI5ZjNmNTA0YWIzYyIsInVzZXJJZCI6MTksImlhdCI6MTU3MzU5MTkzNH0.B2vr1OxHFdkfIrMzHu3wZq6Ozy5IqJqDkX205kRz_0Q'
+    }
+
+    let courses = request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
+
+    let columns = [];
+    let rows = [];
+    for(var i = 0; i < courses.length; i++){
+        let c = courses[i];
+        rows.push([c.name, c.description, c.hoursPerClass])
+    }
     conv.ask(new Table({
         dividers: true,
-        columns: ['Nome do Curso', 'Tutor', 'Quantida evadidos'],
-        rows: [
-          ['Agente de Microcrédito', 'Fabrice', '12'],
-          ['Agente de Endemias', 'João', '21'],
-          ['Agente de Microcrédito', 'Fabrice', '12'],
-          ['Agente de Microcrédito', 'Fabrice', '12'],
-          ['Agente de Microcrédito', 'Fabrice', '12'],
-          ['Agente de Microcrédito', 'Fabrice', '12'],
-          ['Agente de Microcrédito', 'Fabrice', '12'],
-          ['Agente de Microcrédito', 'Fabrice', '12'],
-          ['Agente de Microcrédito', 'Fabrice', '12'],
-          ['Agente de Microcrédito', 'Fabrice', '12'],
-          ['Agente de Microcrédito', 'Fabrice', '12'],
-          ['Agente de Microcrédito', 'Fabrice', '12'],
-        ],
+        columns: ['Nome do Curso', 'Descrição', 'Horas'],
+        rows: rows,
       }));
 });
 
