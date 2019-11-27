@@ -33,8 +33,8 @@ app.catch((conv, error) => {
   expressApp.get('/', function(request, response) {
     var result = 'App is running'
     response.send(result);
-}).use(bodyParser.json(), app).listen(app.get('port'), function() {
-    console.log('App is running, server is listening on port ', app.get('port'));
+}).use(bodyParser.json(), app).listen(expressApp.get('port'), function() {
+    console.log('App is running, server is listening on port ', expressApp.get('port'));
 });
 
 
