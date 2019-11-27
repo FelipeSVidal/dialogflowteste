@@ -17,7 +17,7 @@ const app = dialogflow({
   });
 
 app.intent("Todos os Cursos", function(conv) {
-    app.ask("How are you?");
+    conv.ask("How are you?");
 });
 
 app.catch((conv, error) => {
