@@ -5,7 +5,7 @@ const {
     Image,
     Table,
     Carousel,
-    BasicCard
+    BasicCard,Suggestions
   } = require('actions-on-google');
 
   const express = require('express');
@@ -36,12 +36,6 @@ app.intent("Todos os Cursos", async function(conv) {
     let rows = [];
     for(var i = 0; i < courses.length; i++){
         let c = courses[i];
-        // conv.ask(new BasicCard({
-        //     title : c.name,
-        //     subtitle: c.hoursPerClass,
-        //     text: c.description,
-        //     display: 'CROPPED'
-        // }));
         rows.push([c.name, c.description, c.hoursPerClass])
     }
     conv.ask(new Table({
@@ -65,9 +59,9 @@ app.intent("Pegar um curso", async function(conv, params) {
 
     console.log(course);
     conv.ask(new BasicCard({
-        title: course.name,
+        title: `${course.id} - ${course.name}`,
         subtitle: course.hoursPerClass,
-        text: "Curso de teste",
+        text: `${course.description} \n § Numero X de alunos \n § Inicio: ${course.startDate} \t Fim: ${course.endDate}`,
         image: new Image({
             alt: `Imagem do Curso ${course.name}`,
             url: course.image
@@ -75,15 +69,26 @@ app.intent("Pegar um curso", async function(conv, params) {
         display: "CROPPED"
     }));
 
+    conv.ask(new Sugestion('Quantos alunos solicitaram mais prazo.'));
+
+});
+
+app.intent("Default Welcome Intent", function(conv){
+    conv.ask('Olá eu sou o Assis, O que você gostaria de saber?');
+});
+
+app.intent("Solicitaram prazo", function(conv){
+    let ctx = conv.contexts.get('Pegarumcurso-followup');
+    conv.ask(`1106 Alunos solicitaram prazo para o curso ${ctx.parameters.courseId}`);
 });
 
 app.catch((conv, error) => {
     console.error(error);
-    conv.ask('I encountered a glitch. Can you say that again?');
+    conv.ask('Houve uma falha na sua pergunta. poderia reformula-la?');
   });
 
   app.fallback((conv) => {
-    conv.ask(`I couldn't understand. Can you say that again?`);
+    conv.ask(`Não consegui entender. Poderia falar novamente?`);
   });
 
   expressApp.set('port', (process.env.PORT || 5000));
