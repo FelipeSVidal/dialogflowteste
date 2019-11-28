@@ -5,7 +5,8 @@ const {
     Image,
     Table,
     Carousel,
-    BasicCard,Suggestions
+    BasicCard,
+    Suggestions
   } = require('actions-on-google');
 
   const express = require('express');
@@ -69,7 +70,7 @@ app.intent("Pegar um curso", async function(conv, params) {
         display: "CROPPED"
     }));
 
-    conv.ask(new Sugestion('Quantos alunos solicitaram mais prazo.'));
+    conv.ask(new Suggestions('Quantos alunos solicitaram mais prazo.'));
 
 });
 
