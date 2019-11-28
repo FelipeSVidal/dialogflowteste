@@ -86,7 +86,7 @@ app.intent("Solicitaram prazo", function(conv){
     conv.ask(`1106 Alunos solicitaram prazo para o curso ${ctx.parameters.courseId}`);
 });
 
-app.intent("Qtd Alunos", function(conv){
+app.intent("Qtd Alunos", async function(conv){
     let ctx = conv.contexts.get('pegarumcurso-followup');
 
     let options = {
