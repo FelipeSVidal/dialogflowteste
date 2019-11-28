@@ -79,7 +79,7 @@ app.intent("Default Welcome Intent", function(conv){
 });
 
 app.intent("Solicitaram prazo", function(conv){
-    let ctx = conv.contexts.get('Pegarumcurso-followup');
+    let ctx = conv.contexts.get('pegarumcurso-followup');
     conv.ask(`1106 Alunos solicitaram prazo para o curso ${ctx.parameters.courseId}`);
 });
 
