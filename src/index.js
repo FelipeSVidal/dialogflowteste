@@ -34,16 +34,18 @@ app.intent("Todos os Cursos", async function(conv) {
     let courses = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
 
     let columns = [];
-    let rows = [];
+    let rows = [[194, 'Curso Teste', 'OO']];
     for(var i = 0; i < courses.length; i++){
         let c = courses[i];
-        rows.push([c.name, c.description, c.hoursPerClass])
+        rows.push([c.id, c.name, c.hoursPerClass])
     }
     conv.ask(new Table({
         dividers: true,
-        columns: ['Nome do Curso', 'Descrição', 'Horas'],
+        columns: ['Id do Curso', 'Nome do Curso', 'Horas'],
         rows: rows,
       }));
+
+    conv.ask(new Suggestions('Curso com id 198'));
 });
 
 app.intent("Pegar um curso", async function(conv, params) {
@@ -71,6 +73,7 @@ app.intent("Pegar um curso", async function(conv, params) {
     }));
 
     conv.ask(new Suggestions('Quantos solicitaram prazo'));
+    conv.ask(new Suggestions('Quantos usuários'));
 
 });
 
@@ -82,6 +85,25 @@ app.intent("Solicitaram prazo", function(conv){
     let ctx = conv.contexts.get('pegarumcurso-followup');
     conv.ask(`1106 Alunos solicitaram prazo para o curso ${ctx.parameters.courseId}`);
 });
+
+app.intent("Qtd Alunos", function(conv){
+    let ctx = conv.contexts.get('pegarumcurso-followup');
+
+    let options = {
+        method: 'get',
+        uri: `https://cvaadministracao.inec.org.br/webservice/rest/server.php?wstoken=f60607f452e54dd5e59fb9f3f504ab3c&wsfunction=core_enrol_get_enrolled_users&moodlewsrestformat=json&courseid=${ctx.parameters.courseId}`,
+        json: true,
+    }
+    options.auth = {
+        'bearer': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVG9rZW4iOiJmNDRjM2JjMzI3YTkwODJmMTY2NmRlMGJiN2YwOGFhYiIsImFkbWluVG9rZW4iOiJmNjA2MDdmNDUyZTU0ZGQ1ZTU5ZmI5ZjNmNTA0YWIzYyIsInVzZXJJZCI6MTksImlhdCI6MTU3MzU5MTkzNH0.B2vr1OxHFdkfIrMzHu3wZq6Ozy5IqJqDkX205kRz_0Q'
+    }
+    let qtdAlunos = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
+
+    conv.ask(`O curso ${ctx.parameters.courseId} tem ${qtdAlunos.length} usuários matriculados`);
+});
+
+// FAZER O INTENT ACIMA
+
 
 app.catch((conv, error) => {
     console.error(error);
