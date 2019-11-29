@@ -114,7 +114,7 @@ app.intent("Concordantes com o termo", async (conv) => {
         'bearer': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVG9rZW4iOiJmNDRjM2JjMzI3YTkwODJmMTY2NmRlMGJiN2YwOGFhYiIsImFkbWluVG9rZW4iOiJmNjA2MDdmNDUyZTU0ZGQ1ZTU5ZmI5ZjNmNTA0YWIzYyIsInVzZXJJZCI6MTksImlhdCI6MTU3MzU5MTkzNH0.B2vr1OxHFdkfIrMzHu3wZq6Ozy5IqJqDkX205kRz_0Q'
     }
    // let termos = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
-
+    conv.ask('Carousel Example');
     conv.ask(new Carousel({
         items:{
             ['1']:{
