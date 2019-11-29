@@ -118,13 +118,13 @@ app.intent("Concordantes com o termo", async (conv) => {
     conv.ask(new Carousel({
         items:{
             ['1']:{
-                image: 'http://www2.fab.mil.br/ecemar/images/phocadownload/moodlemobile.png',
+                image: new Image({url: 'http://www2.fab.mil.br/ecemar/images/phocadownload/moodlemobile.png', alt: 'img'}),
                 title: `${termos.data[0].name}`,
                 description: 'Description of number one',
                 synonyms: ['synonym of KEY_ONE 1', 'synonym of KEY_ONE 2'],
             },
             ['2']:{
-                image: 'http://www2.fab.mil.br/ecemar/images/phocadownload/moodlemobile.png',
+                image: new Image({url: 'http://www2.fab.mil.br/ecemar/images/phocadownload/moodlemobile.png', alt: 'img'}),
                 title: `${termos.data[1].name}`,
                 description: 'Description of number two',
                 synonyms: ['synonym of KEY_TWO 1', 'synonym of KEY_TWO 2'],
