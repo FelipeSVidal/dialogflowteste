@@ -102,7 +102,34 @@ app.intent("Qtd Alunos", async function(conv){
     conv.ask(`O curso ${ctx.parameters.courseId} tem ${qtdAlunos.length} usuários matriculados`);
 });
 
-// FAZER O INTENT ACIMA
+// FAZER O INTENT CARROSSEL PARA MOSTRAR RELATÓRIO DE CONCORDANTES COM O TERMO
+
+app.intent("Concordantes com o termo", (conv) => {
+    let options = {
+        method: 'get',
+        uri: `https://cvaadministracao.inec.org.br:4000/api/v1/reports/7`,
+        json: true,
+    }
+    options.auth = {
+        'bearer': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVG9rZW4iOiJmNDRjM2JjMzI3YTkwODJmMTY2NmRlMGJiN2YwOGFhYiIsImFkbWluVG9rZW4iOiJmNjA2MDdmNDUyZTU0ZGQ1ZTU5ZmI5ZjNmNTA0YWIzYyIsInVzZXJJZCI6MTksImlhdCI6MTU3MzU5MTkzNH0.B2vr1OxHFdkfIrMzHu3wZq6Ozy5IqJqDkX205kRz_0Q'
+    }
+    let termos = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
+
+    conv.ask(new Carousel({
+        items:{
+            ['1']:{
+                title: 'Number one',
+                description: 'Description of number one',
+                synonyms: ['synonym of KEY_ONE 1', 'synonym of KEY_ONE 2'],
+            },
+            ['2']:{
+                title: 'Number one',
+                description: 'Description of number one',
+                synonyms: ['synonym of KEY_ONE 1', 'synonym of KEY_ONE 2'],
+            }
+        }
+    }));
+});
 
 
 app.catch((conv, error) => {
