@@ -123,9 +123,9 @@ app.intent("Concordantes com o termo", async (conv) => {
                 synonyms: ['synonym of KEY_ONE 1', 'synonym of KEY_ONE 2'],
             },
             ['2']:{
-                title: 'Number one',
-                description: 'Description of number one',
-                synonyms: ['synonym of KEY_ONE 1', 'synonym of KEY_ONE 2'],
+                title: 'Number two',
+                description: 'Description of number two',
+                synonyms: ['synonym of KEY_TWO 1', 'synonym of KEY_TWO 2'],
             }
         }
     }));
