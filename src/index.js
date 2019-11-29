@@ -128,6 +128,12 @@ app.intent("Concordantes com o termo", async (conv) => {
                 title: `${termos.data[1].name}`,
                 description: 'Description of number two',
                 synonyms: ['synonym of KEY_TWO 1', 'synonym of KEY_TWO 2'],
+            },
+            ['3']:{
+                image: new Image({url: 'http://www2.fab.mil.br/ecemar/images/phocadownload/moodlemobile.png', alt: 'img'}),
+                title: `${termos.data[2].name}`,
+                description: 'Description of number TREE',
+                synonyms: ['synonym of KEY_TRE 1', 'synonym of KEY_TRE 2'],
             }
         }
     }));
