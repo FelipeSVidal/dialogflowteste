@@ -113,17 +113,19 @@ app.intent("Concordantes com o termo", async (conv) => {
     options.auth = {
         'bearer': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVG9rZW4iOiJmNDRjM2JjMzI3YTkwODJmMTY2NmRlMGJiN2YwOGFhYiIsImFkbWluVG9rZW4iOiJmNjA2MDdmNDUyZTU0ZGQ1ZTU5ZmI5ZjNmNTA0YWIzYyIsInVzZXJJZCI6MTksImlhdCI6MTU3MzU5MTkzNH0.B2vr1OxHFdkfIrMzHu3wZq6Ozy5IqJqDkX205kRz_0Q'
     }
-   // let termos = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
+    let termos = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
     conv.ask('Carousel Example');
     conv.ask(new Carousel({
         items:{
             ['1']:{
-                title: 'Number one',
+                image: 'http://www2.fab.mil.br/ecemar/images/phocadownload/moodlemobile.png',
+                title: `${termos.data[0].name}`,
                 description: 'Description of number one',
                 synonyms: ['synonym of KEY_ONE 1', 'synonym of KEY_ONE 2'],
             },
             ['2']:{
-                title: 'Number two',
+                image: 'http://www2.fab.mil.br/ecemar/images/phocadownload/moodlemobile.png',
+                title: `${termos.data[1].name}`,
                 description: 'Description of number two',
                 synonyms: ['synonym of KEY_TWO 1', 'synonym of KEY_TWO 2'],
             }
