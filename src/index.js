@@ -104,7 +104,7 @@ app.intent("Qtd Alunos", async function(conv){
 
 // FAZER O INTENT CARROSSEL PARA MOSTRAR RELATÓRIO DE CONCORDANTES COM O TERMO
 
-app.intent("Concordantes com o termo", (conv) => {
+app.intent("Concordantes com o termo", async (conv) => {
     let options = {
         method: 'get',
         uri: `https://cvaadministracao.inec.org.br:4000/api/v1/reports/7`,
@@ -113,7 +113,7 @@ app.intent("Concordantes com o termo", (conv) => {
     options.auth = {
         'bearer': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVG9rZW4iOiJmNDRjM2JjMzI3YTkwODJmMTY2NmRlMGJiN2YwOGFhYiIsImFkbWluVG9rZW4iOiJmNjA2MDdmNDUyZTU0ZGQ1ZTU5ZmI5ZjNmNTA0YWIzYyIsInVzZXJJZCI6MTksImlhdCI6MTU3MzU5MTkzNH0.B2vr1OxHFdkfIrMzHu3wZq6Ozy5IqJqDkX205kRz_0Q'
     }
-    let termos = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
+   // let termos = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
 
     conv.ask(new Carousel({
         items:{
