@@ -48,38 +48,69 @@ app.intent("Todos os Cursos", async function(conv) {
     conv.ask(new Suggestions('Curso com id 198'));
 });
 
-app.intent("Pegar um curso", async function(conv, params) {
-    conv.ask(`Card do curso com id: ${params.courseId}`); 
-    let options = {
-        method: 'get',
-        uri: `https://cvaadministracao.inec.org.br:4000/api/v1/course/${params.courseId}`,
-        json: true,
-    }
-    options.auth = {
-        'bearer': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVG9rZW4iOiJmNDRjM2JjMzI3YTkwODJmMTY2NmRlMGJiN2YwOGFhYiIsImFkbWluVG9rZW4iOiJmNjA2MDdmNDUyZTU0ZGQ1ZTU5ZmI5ZjNmNTA0YWIzYyIsInVzZXJJZCI6MTksImlhdCI6MTU3MzU5MTkzNH0.B2vr1OxHFdkfIrMzHu3wZq6Ozy5IqJqDkX205kRz_0Q'
-    }
-    let course = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
+app.intent("Selecionar curso", async function(conv, params) {
 
-    console.log(course);
+    if(params.nomeCurso != "Formação de Agente") {
+        conv.ask("Curso não encontrado por favor verifique se o curso está correto.\nSugestões para você:\n")
+        conv.ask("♦ Listar todos os cursos\n♦ Listar cursos da categoria Formação");
+    }
+    conv.ask(`Informações gerais do curso : : ${params.nomeCurso}`); 
+
+    // let options = {
+    //     method: 'get',
+    //     uri: `https://cvaadministracao.inec.org.br:4000/api/v1/course/${params.courseId}`,
+    //     json: true,
+    // }
+    // options.auth = {
+    //     'bearer': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVG9rZW4iOiJmNDRjM2JjMzI3YTkwODJmMTY2NmRlMGJiN2YwOGFhYiIsImFkbWluVG9rZW4iOiJmNjA2MDdmNDUyZTU0ZGQ1ZTU5ZmI5ZjNmNTA0YWIzYyIsInVzZXJJZCI6MTksImlhdCI6MTU3MzU5MTkzNH0.B2vr1OxHFdkfIrMzHu3wZq6Ozy5IqJqDkX205kRz_0Q'
+    // }
+    //let course = await request(options).then(function(res){return res}).catch(function(err){console.log('erro in courses', err)});
+
+    // if(course == null) // RETURN ERRO N
+    // console.log(course);
+    
+    let course = {
+        id: 64,
+        name: "Formação Agente de Microcrédito",
+        hoursPerClass: "40h/a",
+        description: "Capacitação dos novos agentes",
+        startDate: "12/12/2019",
+        endDate: "15/12/2019"
+    }
+    
     conv.ask(new BasicCard({
         title: `${course.id} - ${course.name}`,
         subtitle: course.hoursPerClass,
         text: `${course.description} \n § Numero X de alunos \n § Inicio: ${course.startDate} \t Fim: ${course.endDate}`,
-        image: new Image({
-            alt: `Imagem do Curso ${course.name}`,
-            url: course.image
-        }),
-        display: "CROPPED"
+        // image: new Image({
+        //     alt: `Imagem do Curso ${course.name}`,
+        //     url: course.image
+        // }),
+        // display: "CROPPED"
     }));
 
-    conv.ask(new Suggestions('Quantos solicitaram prazo'));
-    conv.ask(new Suggestions('Quantos usuários'));
+    conv.ask(new Suggestions('Listar Alunos'));
+    //conv.ask(new Suggestions('Quantos usuários'));
 
+});
+
+app.intent("Listar tutores/alunos", (conv) => {
+    conv.ask("Lista de alunos do curso Formação de Agente:");
+    conv.ask(new Table({
+        dividers: true,
+        columns: ['Nome', 'Probabilidade de Evasão', 'Detalhes'],
+        rows:[
+            ['João Silva','52% de risco de evasão', 'IR'],
+            ['Humberto Monte', '12% de risco de evasão', 'IR'],
+            ['Carlos Alberto', '89% de risco de evasão', 'IR']
+        ]
+    }));
+    conv.ask("Para visualizar a lista completa de alunos acesse os detalhes do curso.");
 });
 
 app.intent("Default Welcome Intent", function(conv){
     conv.ask('Olá, meu nome é Assis, veja algumas opções sobre o que posso lhe responder:');
-    conv.ask('\t♦ Informações sobre um curso \n\t♦ Alunos com maior risco de evasão\n\t♦ Tutores com queda de desempenho');
+    conv.ask('\n\t♦ Informações sobre um curso \n\t♦ Alunos com maior risco de evasão\n\t♦ Tutores com queda de desempenho');
 });
 
 app.intent("Solicitaram prazo", function(conv){
