@@ -50,10 +50,10 @@ app.intent("Todos os Cursos", async function(conv) {
 
 app.intent("Selecionar curso", async function(conv, params) {
 
-    if(params.nomeCurso != "Formação de Agente") {
+    if(params.nomeCurso.toLocaleLowerCase != "formação de agente") {
         conv.ask("Curso não encontrado por favor verifique se o curso está correto.\nSugestões para você:\n")
         conv.ask("♦ Listar todos os cursos\n♦ Listar cursos da categoria Formação");
-    }
+    }else{
     conv.ask(`Informações gerais do curso : : ${params.nomeCurso}`); 
 
     // let options = {
@@ -81,7 +81,7 @@ app.intent("Selecionar curso", async function(conv, params) {
     conv.ask(new BasicCard({
         title: `${course.id} - ${course.name}`,
         subtitle: course.hoursPerClass,
-        text: `${course.description} \n § Numero X de alunos \n § Inicio: ${course.startDate} \t Fim: ${course.endDate}`,
+        text: `${course.description} \n ♦ Numero X de alunos \n ♦ Inicio: ${course.startDate}      ♦Fim: ${course.endDate}`,
         // image: new Image({
         //     alt: `Imagem do Curso ${course.name}`,
         //     url: course.image
@@ -91,7 +91,7 @@ app.intent("Selecionar curso", async function(conv, params) {
 
     conv.ask(new Suggestions('Listar Alunos'));
     //conv.ask(new Suggestions('Quantos usuários'));
-
+    }
 });
 
 app.intent("Listar tutores/alunos", (conv) => {
