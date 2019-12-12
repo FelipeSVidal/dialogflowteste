@@ -79,9 +79,7 @@ app.intent("Pegar um curso", async function(conv, params) {
 
 app.intent("Default Welcome Intent", function(conv){
     conv.ask('Olá, meu nome é Assis, veja algumas opções sobre o que posso lhe responder:');
-    conv.ask('    ♦ Informações sobre um curso');
-    conv.ask('    ♦ Alunos com maior risco de evasão');
-    conv.ask('    ♦ Tutores com queda de desempenho');
+    conv.ask('    ♦ Informações sobre um curso \n    ♦ Alunos com maior risco de evasão\n    ♦ Tutores com queda de desempenho');
 });
 
 app.intent("Solicitaram prazo", function(conv){
