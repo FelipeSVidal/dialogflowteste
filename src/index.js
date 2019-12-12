@@ -50,8 +50,8 @@ app.intent("Todos os Cursos", async function(conv) {
 
 app.intent("Selecionar curso", async function(conv, params) {
 
-    console.log(params.nomeCurso.toLocaleLowerCase);
-    if(params.nomeCurso.toLowerCase != "formação de agente") {
+    console.log(params.nomeCurso.toLowerCase());
+    if(params.nomeCurso.toLowerCase() != "formação de agente") {
         conv.ask("Curso não encontrado por favor verifique se o curso está correto.\nSugestões para você:\n")
         conv.ask("♦ Listar todos os cursos\n♦ Listar cursos da categoria Formação");
     }else{
