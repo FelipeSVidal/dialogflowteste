@@ -56,7 +56,7 @@ app.intent("Selecionar curso", async function(conv, params) {
         conv.ask("Curso não encontrado por favor verifique se o curso está correto.\nSugestões para você:\n")
         conv.ask("♦ Listar todos os cursos\n♦ Listar cursos da categoria Formação");
     }else{
-    conv.ask(`Informações gerais do curso : : ${params.nomeCurso}`); 
+    conv.ask(`Informações gerais do curso :  ${params.nomeCurso}`); 
 
     // let options = {
     //     method: 'get',
@@ -74,6 +74,7 @@ app.intent("Selecionar curso", async function(conv, params) {
     let course = {
         id: 64,
         name: "Formação Agente de Microcrédito",
+        category: "Formação",
         hoursPerClass: "40h/a",
         description: "Capacitação dos novos agentes",
         startDate: "12/12/2019",
@@ -82,8 +83,8 @@ app.intent("Selecionar curso", async function(conv, params) {
     
     conv.ask(new BasicCard({
         title: `${course.id} - ${course.name}`,
-        subtitle: course.hoursPerClass,
-        text: `${course.description} \n ♦ Numero X de alunos \n ♦ Inicio: ${course.startDate}      ♦Fim: ${course.endDate}`,
+        subtitle: `${course.hoursPerClass} - ${course.category} \n ♦ Inicio: ${course.startDate}      ♦Fim: ${course.endDate}`,
+        text: `${course.description} \n ♦ 72 alunos inscritos \n ♦ 22 alunos evadidos \n ♦ 57% de risco de evasão \n `,
         buttons: new Button({title: "Detalhes", url: "http://www.google.com"})
         // image: new Image({
         //     alt: `Imagem do Curso ${course.name}`,
