@@ -83,7 +83,7 @@ app.intent("Selecionar curso", async function(conv, params) {
         title: `${course.id} - ${course.name}`,
         subtitle: course.hoursPerClass,
         text: `${course.description} \n ♦ Numero X de alunos \n ♦ Inicio: ${course.startDate}      ♦Fim: ${course.endDate}`,
-        buttons: {title: "Detalhes", openUrlAction: "http://www.google.com"}
+        buttons: new Button({title: "Detalhes", url: "http://www.google.com"})
         // image: new Image({
         //     alt: `Imagem do Curso ${course.name}`,
         //     url: course.image
