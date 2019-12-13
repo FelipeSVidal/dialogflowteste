@@ -83,6 +83,7 @@ app.intent("Selecionar curso", async function(conv, params) {
         title: `${course.id} - ${course.name}`,
         subtitle: course.hoursPerClass,
         text: `${course.description} \n ♦ Numero X de alunos \n ♦ Inicio: ${course.startDate}      ♦Fim: ${course.endDate}`,
+        buttons: {title: "Detalhes", openUrlAction: "http://www.google.com"}
         // image: new Image({
         //     alt: `Imagem do Curso ${course.name}`,
         //     url: course.image
@@ -106,7 +107,7 @@ app.intent("Listar tutores/alunos", (conv) => {
             ['Carlos Alberto', '89% de risco de evasão', 'IR']
         ]
     }));
-    conv.ask("Para visualizar a lista completa de alunos acesse os detalhes do curso.");
+    conv.ask("• Para visualizar a lista completa de alunos acesse os detalhes do curso.");
 });
 
 app.intent("Default Welcome Intent", function(conv){
