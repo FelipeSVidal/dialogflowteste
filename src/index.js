@@ -6,7 +6,8 @@ const {
     Table,
     Carousel,
     BasicCard,
-    Suggestions
+    Suggestions,
+    Button
   } = require('actions-on-google');
 
   const express = require('express');
